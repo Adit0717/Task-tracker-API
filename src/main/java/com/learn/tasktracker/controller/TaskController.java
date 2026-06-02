@@ -21,7 +21,7 @@ public class TaskController {
     @PostMapping("/users/{userId}/tasks")
     public ResponseEntity<Task> createTask(
             @PathVariable Long userId,
-            @RequestBody CreateTaskRequest request) {
+            @Valid @RequestBody CreateTaskRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(taskService.createTask(userId, request));
     }
