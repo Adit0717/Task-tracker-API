@@ -22,8 +22,12 @@ public class TaskController {
     public ResponseEntity<Task> createTask(
             @PathVariable Long userId,
             @Valid @RequestBody CreateTaskRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(taskService.createTask(userId, request));
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(taskService.createTask(userId, request));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     @GetMapping("/tasks")
@@ -37,17 +41,29 @@ public class TaskController {
     public ResponseEntity<Task> updateStatus(
             @PathVariable Long id,
             @Valid @RequestBody UpdateStatusRequest request) {
-        return ResponseEntity.ok(taskService.updateStatus(id, request));
+        try {
+            return ResponseEntity.ok(taskService.updateStatus(id, request));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
-        taskService.deleteTask(id);
-        return ResponseEntity.noContent().build(); // 204 No Content
+        try {
+            taskService.deleteTask(id);
+            return ResponseEntity.noContent().build(); // 204 No Content
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @GetMapping("/users/{id}/tasks/overdue")
     public ResponseEntity<List<Task>> getOverdueTasks(@PathVariable Long id) {
-        return ResponseEntity.ok(taskService.getOverdueTasks(id));
+        try {
+            return ResponseEntity.ok(taskService.getOverdueTasks(id));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 }
