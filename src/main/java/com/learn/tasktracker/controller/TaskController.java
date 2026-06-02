@@ -22,8 +22,8 @@ public class TaskController {
     public ResponseEntity<Task> createTask(
             @PathVariable Long userId,
             @Valid @RequestBody CreateTaskRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(taskService.createTask(userId, request));
+        taskService.createTask(userId, request);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/tasks")
@@ -37,7 +37,8 @@ public class TaskController {
     public ResponseEntity<Task> updateStatus(
             @PathVariable Long id,
             @Valid @RequestBody UpdateStatusRequest request) {
-        return ResponseEntity.ok(taskService.updateStatus(id, request));
+        taskService.updateStatus(id, request);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/tasks/{id}")
