@@ -30,7 +30,7 @@ public class TaskController {
     public ResponseEntity<List<Task>> getAllTasks(
             @RequestParam(required = false) TaskStatus status,
             @RequestParam(required = false) Integer priority) {
-        return ResponseEntity.ok(taskService.getAllTasks(status, priority));
+        return ResponseEntity.ok(taskService.getAllTasks(null, null));
     }
 
     @PutMapping("/tasks/{id}/status")
