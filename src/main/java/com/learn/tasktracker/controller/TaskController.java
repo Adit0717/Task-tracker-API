@@ -30,9 +30,7 @@ public class TaskController {
     public ResponseEntity<List<Task>> getAllTasks(
             @RequestParam(required = false) TaskStatus status,
             @RequestParam(required = false) Integer priority) {
-        if (status != null || priority != null) {
-            return ResponseEntity.ok(taskService.getAllTasks(null, null));
-        }
+
         return ResponseEntity.ok(taskService.getAllTasks(status, priority));
     }
 
