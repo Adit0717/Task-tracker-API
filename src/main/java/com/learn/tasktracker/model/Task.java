@@ -13,7 +13,7 @@ public class Task {
     private Long id;
 
     @Column(nullable = false)
-    @com.fasterxml.jackson.annotation.JsonIgnore
+    // @com.fasterxml.jackson.annotation.JsonIgnore
     private String title;
 
     private String description;
